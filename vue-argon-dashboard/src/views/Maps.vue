@@ -78,7 +78,7 @@
 <script>
   export default {
     mounted() {
-      var mymap = L.map('map-canvas').setView([47.36667, 8.55], 13);
+      var mymap = L.map('map-canvas').setView([47.37887, 8.54], 13);
 
         L.tileLayer(
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
@@ -88,7 +88,7 @@
             }
         ).addTo(mymap);
 
-        mymap.setZoom(14);
+        mymap.setZoom(18);
         var locations = [
             [47.36667, 8.55, 1],
             [47.377560, 8.5393, 0.7],
