@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VersusVirus</title>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt8qo20Bz13VI8eEe1evfeeqYvQBGzMcg" async defer></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+  <script src="vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+  <script src='https://unpkg.com/leaflet.gridlayer.googlemutant@latest/Leaflet.GoogleMutant.js'></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Underwägs</h1>
+    {{ message }}
+	<input type="text" id="name" name="name" required
+       minlength="4" maxlength="8" size="10">
+    <button v-on:click="fetchData">{{ loc }}</button>
+    <div>
+      {{ loc_data }}
+    </div>
+	<div id="mapid" style="width: 1200px; height: 600px; margin:100px"></div>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>

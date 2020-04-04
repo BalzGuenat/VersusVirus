@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>A Leaflet map!</title>
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+   integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+   crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
+   integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
+   crossorigin=""></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="leaflet.heat.js"></script>
+  <style>
+    #map{ height: 100% }
+  </style>
+</head>
+
+<body>
+    <h1>Heat Map</h1>
+    <div id="mapid" style="height: 100%;"></div>
+    <script>
+        var mymap = L.map('mapid').setView([47.36667, 8.55], 13);
+
+/*         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1
+        }).addTo(mymap); */
+        L.tileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+                attribution: 'Attribution',
+                maxZoom: 17,
+                minZoom: 9
+            }
+        ).addTo(mymap);
+
+        /*var locations = [
+            {
+                lat: 47.3666,
+                lng: 8.55,
+                count:3
+            }
+        ];*/
+        mymap.setZoom(13);
+        var locations = [
+            [47.36667, 8.55, 1],
+            [47.377560, 8.5393, 0.7],
+            [47.377836, 8.5402, 0.5],
+            [47.378389, 8.539804, 1],
+            [47.378258, 8.540040, 1]
+        ];
+
+        var heat = L.heatLayer(locations, { radius: 15 });
+        heat.addTo(mymap);
+        
+    </script>
+</body>
+</html>
