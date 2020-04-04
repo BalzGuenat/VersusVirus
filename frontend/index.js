@@ -1,8 +1,8 @@
 var app = new Vue({ 
     el: '#app',
     data: {
-        message: 'Hello Vue!',
-        loc: 'bar',
+        message: 'Hello! Where do you want to go?',
+        loc: 'Search',
         loc_data: null
     },
     methods: {
