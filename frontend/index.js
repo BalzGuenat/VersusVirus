@@ -11,10 +11,10 @@ var app = new Vue({
       fetchData: function() {
         console.log(this.loc);
         axios
-          .get('http://pi.balzguenat.ch:2020/api/cached/AnRYn1F8NfSGLexf7')
+          .get('http://pi.balzguenat.ch:2020/api/cached/ChIJBUuIDAgKkEcR6dqDd_VHtbA')
           .then(rsp => (this.loc_data = rsp))
         axios
-          .get('http://pi.balzguenat.ch:2020/api/recommend/AnRYn1F8NfSGLexf7')
+          .get('http://pi.balzguenat.ch:2020/api/recommend/ChIJBUuIDAgKkEcR6dqDd_VHtbA')
           .then(rsp => {
             this.rec_time = rsp.data.rec_time[3];
             this.best_time = rsp.data.best_time[3];

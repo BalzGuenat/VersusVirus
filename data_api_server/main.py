@@ -28,10 +28,14 @@ def places():
     return jsonify([f[:-4] for f in files])
 
 
-def find_recommended_time(data_points, preferred_time=None):
-    if not preferred_time:
-        preferred_time = time.localtime()
-    day = [
+def get_hour_data_idx(day_data, hour):
+    for i, d in enumerate(day_data):
+        if d['hour_of_day'] == hour:
+            return i
+    return -1
+
+
+days = [
         'Monday',
         'Tuesday',
         'Wednesday',
@@ -39,14 +43,19 @@ def find_recommended_time(data_points, preferred_time=None):
         'Friday',
         'Saturday',
         'Sunday'
-    ][preferred_time.tm_wday]
+    ]
+def find_recommended_time(data_points, preferred_time=None):
+    if not preferred_time:
+        preferred_time = time.localtime()
+    day = days[preferred_time.tm_wday]
     day_data = data_points[day]
-    pref_hour_data = day_data[preferred_time.tm_hour]
-    if pref_hour_data['popularity_normal'] > day_data[preferred_time.tm_hour + 1]['popularity_normal']:
+    hour_idx = get_hour_data_idx(day_data, preferred_time.tm_hour)
+    if hour_idx == -1:
+        return day_data[0] # go tomorrow
+
+    if hour_idx + 1 < len(day_data) and \
+          day_data[hour_idx]['popularity_normal'] > day_data[hour_idx + 1]['popularity_normal']:
         return time.localtime(time.mktime(preferred_time) + 3600)
-    elif pref_hour_data['popularity_normal'] > day_data[preferred_time.tm_hour - 1]['popularity_normal']:
-        # todo check that this isn't in the past
-        return time.localtime(time.mktime(preferred_time) - 3600)
     else:
         return preferred_time
 
@@ -54,15 +63,7 @@ def find_recommended_time(data_points, preferred_time=None):
 def find_best_time(data_points, preferred_time=None):
     if not preferred_time:
         preferred_time = time.localtime()
-    day = [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday'
-    ][preferred_time.tm_wday]
+    day = days[preferred_time.tm_wday]
     day_data = data_points[day]
     best_hour = -1
     best_hour_pop = 100
@@ -112,13 +113,16 @@ def read_scraper_data_file(path):
         next(it) # skip header row
         for entry in it:
             dp = {}
+            dp['id'] = entry[0]
             dp['url'] = entry[1]
-            dp['hour_of_day'] = int(entry[4] if entry[4] else 0)
-            dp['popularity_normal'] = int(entry[5] if entry[5] else 0)
-            if len(entry) > 6 and entry[6]:
-                dp['popularity_current'] = int(entry[6])
+            dp['lat'] = entry[3]
+            dp['lng'] = entry[4]
+            dp['hour_of_day'] = int(entry[6] if entry[6] else 0)
+            dp['popularity_normal'] = int(entry[7] if entry[7] else 0)
+            if len(entry) > 8 and entry[8]:
+                dp['popularity_current'] = int(entry[8])
 
-            day = entry[3]
+            day = entry[5]
             if day not in data_points:
                 data_points[day] = []
             data_points[day].append(dp)
