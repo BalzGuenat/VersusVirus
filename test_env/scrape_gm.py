@@ -52,7 +52,7 @@ def main():
 	url_list = urls['place_id'].tolist()
 	latitude_list = urls['lat'].tolist()
 	longitude_list = urls['lng'].tolist()
-	counter = 1;
+	counter = 0
 	for url in url_list:
 		#print(urllib.parse.urlparse(url))
 		#print (url)
