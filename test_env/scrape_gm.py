@@ -43,25 +43,28 @@ def main():
 	# write to folder logs to remember the state of the config file
 	urls.to_csv('logs' + os.sep + run_time + '.log', index = False)
 
-	url_list = urls['bullshit'].tolist()
+	#use the ID place_id to find the correct column and iterate through the whole list of place_id's 
+	url_list = urls['place_id'].tolist()
 	for url in url_list:
 		#print(urllib.parse.urlparse(url))
 		#print (url)
 
 		try:
-			print("check1")
-			data = run_scraper(url)
-			print(12)
+			#add the prefix of the url so we can do a http request
+			url_full = "https://www.google.com/maps/place/?q=place_id:" + url
+			data = run_scraper(url_full)
 		except:
 			print('ERROR:', url, run_time)
 			# go to next url
+			#TODO delte each line that causes an error
 			continue
 
 		if len(data) > 0:
 			# valid data to be written
-			file_name = make_file_name(url)
+			#file_name = make_file_name(url) no longer needed, but lets keep it, just in case 
 
-			with open('data' + os.sep + file_name + '.' + run_time + '.csv', 'w') as f:
+			#filename of the output CSV vile
+			with open('data' + os.sep + url + '.csv', 'w') as f:
 				# write header
 				f.write(config.DELIM.join(config.HEADER_COLUMNS)+'\n')
 
@@ -73,6 +76,7 @@ def main():
 
 		else:
 			print('WARNING: no data', url, run_time)
+			#TODO delet each line that causes an error
 
 def run_scraper(u):
 
