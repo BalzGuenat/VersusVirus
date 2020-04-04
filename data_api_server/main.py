@@ -1,9 +1,11 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import scrape_gm as scraper
 import os
 import csv
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/api/place/<place_id>')
 def place(place_id):
