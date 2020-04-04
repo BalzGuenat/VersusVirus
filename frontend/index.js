@@ -3,7 +3,9 @@ var app = new Vue({
     data: {
         message: 'Hello! Where do you want to go?',
         loc: 'Search',
-        loc_data: null
+        loc_data: null,
+        rec_time: null,
+        best_time: null
     },
     methods: {
       fetchData: function() {
@@ -11,6 +13,12 @@ var app = new Vue({
         axios
           .get('http://pi.balzguenat.ch:2020/api/cached/AnRYn1F8NfSGLexf7')
           .then(rsp => (this.loc_data = rsp))
+        axios
+          .get('http://pi.balzguenat.ch:2020/api/recommend/AnRYn1F8NfSGLexf7')
+          .then(rsp => {
+            this.rec_time = rsp.data.rec_time[3];
+            this.best_time = rsp.data.best_time[3];
+          });
       }
     }
 });
@@ -23,11 +31,11 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
 		'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
 		'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-	id: 'mapbox/streets-v11', 
+	id: 'mapbox/streets-v11',
 	<!-- id: 'mapbox/satellite-v9', -->
 	tileSize: 512,
 	zoomOffset: -1
-}).addTo(mymap); 
+}).addTo(mymap);
 
 
 var circle = L.circle([47.3764528,8.542366699999999], {
