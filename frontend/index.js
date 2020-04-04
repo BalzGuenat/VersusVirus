@@ -15,6 +15,7 @@ var app = new Vue({
     }
 });
 
+
 var mymap = L.map('mapid').setView([47.3753731,8.5357199], 15);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -29,7 +30,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(mymap); 
 
 
-var circle = L.circle([47.3753682,8.5392164], {
+var circle = L.circle([47.3764528,8.542366699999999], {
 <!-- var circle = L.circle([47.3768401,8.5406645], { -->
 color: 'red',
 fillColor: '#f03',
@@ -37,4 +38,4 @@ fillOpacity: 0.5,
 radius: 20
 }).addTo(mymap);
 
-circle.bindPopup("230 people");
+circle.bindPopup("Too many people at Coop Zurich Bahnhofsbruecke!");
