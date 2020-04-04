@@ -5,7 +5,7 @@ SLEEP_SEC = 15.0
 
 # csv output delimiter
 DELIM = ','
-HEADER_COLUMNS = ('place', 'url', 'lat', 'long' 'scrape_time', 'day_of_week', 'hour_of_day', 'popularity_percent_normal', 'popularity_percent_current')
+HEADER_COLUMNS = ('place', 'url','scrape_time', 'lat', 'long','day_of_week', 'hour_of_day', 'popularity_percent_normal', 'popularity_percent_current')
 
 # path to chrome and chromedriver
 CHROME_BINARY_LOCATION = '/usr/bin/chromium'
