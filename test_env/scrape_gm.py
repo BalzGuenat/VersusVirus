@@ -7,6 +7,7 @@ Run the google maps popularity scraper
 import os
 import sys
 import time
+import csv
 import urllib.parse
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -61,7 +62,7 @@ def main():
 
 		if len(data) > 0:
 			# valid data to be written
-			#file_name = make_file_name(url) no longer needed, but lets keep it, just in case 
+			file_name = make_file_name(url)
 
 			#filename of the output CSV vile
 			with open('data' + os.sep + url + '.csv', 'w') as f:
@@ -76,7 +77,23 @@ def main():
 
 		else:
 			print('WARNING: no data', url, run_time)
-			#TODO delet each line that causes an error
+			if(sys.argv[2] == "clean"):
+				delete_datapoint_without_pop_data(url)
+
+
+def delete_datapoint_without_pop_data(place_id):
+	lines = list()
+	members= place_id
+	with open(sys.argv[1], 'r') as readFile:
+		reader = csv.reader(readFile)
+		for row in reader:
+			lines.append(row)
+			for field in row:
+				if field == members:
+					lines.remove(row)
+	with open(sys.argv[1], 'w') as writeFile:
+		writer = csv.writer(writeFile)
+		writer.writerows(lines)
 
 def run_scraper(u):
 
