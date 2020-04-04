@@ -101,7 +101,6 @@ def parse_scraper_data(data):
         if day not in result['days']:
             result['days'][day] = []
         result['days'][day].append(dp)
-    result['']
     return result
 
 
