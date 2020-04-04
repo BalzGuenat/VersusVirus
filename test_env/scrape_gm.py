@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+#NEEDS 2 system args, one for the input CSV file and one for the
+#mode we will run the program, "clean" to delete bad data points
+#"normal" for any other usecase
+
 '''
 Run the google maps popularity scraper
 '''
@@ -57,7 +61,6 @@ def main():
 		except:
 			print('ERROR:', url, run_time)
 			# go to next url
-			#TODO delte each line that causes an error
 			continue
 
 		if len(data) > 0:
