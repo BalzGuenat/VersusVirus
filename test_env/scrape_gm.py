@@ -76,7 +76,7 @@ def main():
 			counter = counter + 1
 
 			#filename of the output CSV vile
-			with open('data_test' + os.sep + url + '.csv', 'w') as f:
+			with open('data' + os.sep + url + '.csv', 'w') as f:
 				# write header
 				f.write(config.DELIM.join(config.HEADER_COLUMNS)+'\n')
 
