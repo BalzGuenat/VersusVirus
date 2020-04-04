@@ -1,7 +1,12 @@
 body {
 	font-family: sans-serif;
+	font-size: 30pt;
     text-align: center;
 }
 h1 {
-	font-size: 30pt;
+	font-size: 2em;
+}
+button {
+	padding: 1em;
+	font-size: 1.6em;
 }

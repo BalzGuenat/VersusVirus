@@ -3,24 +3,30 @@ var app = new Vue({
     data: {
         message: 'Hello! Where do you want to go?',
         loc: 'Search',
-        loc_data: null
+        loc_data: null,
+        rec_time: null,
+        best_time: null
     },
     methods: {
       fetchData: function() {
         console.log(this.loc);
         axios
-          .get('http://pi.balzguenat.ch:2020/api/cached/AnRYn1F8NfSGLexf7')
+          .get('http://pi.balzguenat.ch:2020/api/cached/ChIJBUuIDAgKkEcR6dqDd_VHtbA')
           .then(rsp => {this.loc_data = rsp;
 		  this.drawCircles();})
-		  
-		  
+        axios
+          .get('http://pi.balzguenat.ch:2020/api/recommend/ChIJBUuIDAgKkEcR6dqDd_VHtbA')
+          .then(rsp => {
+            this.rec_time = rsp.data.rec_time[3];
+            this.best_time = rsp.data.best_time[3];
+          });    
       },
 	  drawCircles: function() {
 			var tod = new Date();
 			var tod_h = tod.getHours();
 			var tod_wd = tod.getDay();
 			
-			console.log(this.loc_data.data["Friday"][tod_h].popularity_normal);
+			//console.log(this.loc_data.data["Friday"][tod_h].popularity_normal);
 
 			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 				maxZoom: 18,

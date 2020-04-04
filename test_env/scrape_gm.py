@@ -50,6 +50,9 @@ def main():
 
 	#use the ID place_id to find the correct column and iterate through the whole list of place_id's 
 	url_list = urls['place_id'].tolist()
+	latitude_list = urls['lat'].tolist()
+	longitude_list = urls['lng'].tolist()
+	counter = 0
 	for url in url_list:
 		#print(urllib.parse.urlparse(url))
 		#print (url)
@@ -67,14 +70,19 @@ def main():
 			# valid data to be written
 			file_name = make_file_name(url)
 
+			lat = str(latitude_list[counter])
+			long = str(longitude_list[counter])
+
+			counter = counter + 1
+
 			#filename of the output CSV vile
-			with open('data' + os.sep + url + '.csv', 'w') as f:
+			with open('data_test' + os.sep + url + '.csv', 'w') as f:
 				# write header
 				f.write(config.DELIM.join(config.HEADER_COLUMNS)+'\n')
 
 				# write data
 				for row in data:
-					f.write(config.DELIM.join((file_name,url,run_time)) + config.DELIM + config.DELIM.join([str(x or '') for x in row])+'\n')
+					f.write(config.DELIM.join((file_name,url,run_time)) + config.DELIM + lat + config.DELIM + long + config.DELIM + config.DELIM.join([str(x or '') for x in row])+'\n')
 
 			print('DONE:', url, run_time)
 

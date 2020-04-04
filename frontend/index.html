@@ -15,14 +15,13 @@
 <body>
   <div id="app">
     <h1>Underwägs</h1>
-    {{ message }}
 	<input type="text" id="name" name="name" required
        minlength="4" maxlength="80" size="10">
-    <button v-on:click="fetchData">{{ loc }}</button>
-    
-	 <!--<div>
-      {{ loc_data }}
-    </div>	-->
+    <button v-on:click="fetchData">Go</button>
+    <div>
+      There are fewer people present around <span class=time>{{ rec_time }}:00</span>.
+      The fewest people are there at <span class="time">{{ best_time }}:00</span>.
+    </div>
 	<div id="mapid" style="width: 1200px; height: 600px; margin:100px"></div>
   </div>
   <script src="index.js"></script>
