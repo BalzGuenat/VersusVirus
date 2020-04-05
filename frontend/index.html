@@ -18,14 +18,18 @@
 	<div>
 	Hello! Where do you want to go? 
 	<input type="text" id="name" name="name" required
-       minlength="4" maxlength="80" size="20" height="40">
+       minlength="4" maxlength="80" height="30pt"><br>
+	   
+	<label for="searchTime">At which time?</label>
+	<input type="time" id="searchTime" name="appt" min="00:00" max="24:00" required>
     <button v-on:click="fetchData">Go</button>
 	</div>
     <div>
-      There are fewer people present around <span class=time>{{ rec_time }}:00</span>.
+	  It is {{ now_day }}, {{ now_time }}. <br>
+      There are fewer people present around <span class=time>{{ rec_time }}:00</span>.<br>
       The fewest people are there at <span class="time">{{ best_time }}:00</span>.
     </div>
-	<div id="mapid" style="width: 1200px; height: 600px; margin:100px"></div>
+	<div id="mapid" style="width: 1200px; height: 600px; margin-left:250px; margin-top:50px"></div>
   </div>
   <script src="index.js"></script>
 </body>

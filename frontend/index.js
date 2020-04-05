@@ -6,7 +6,9 @@ var app = new Vue({
         loc_data: null,
         rec_time: null,
         best_time: null,
-		loc_arr: null
+		loc_arr: null,
+		now_time: null,
+		now_day: null
     },
     methods: {
       fetchData: function() {
@@ -16,11 +18,12 @@ var app = new Vue({
           .then(rsp => {this.loc_arr = rsp;
 		  this.reqAll();})
         axios
-          .get('http://pi.balzguenat.ch:2020/api/recommend/ChIJ-3uh_6CgmkcRXIN90yQc8hw')
+          .get('http://pi.balzguenat.ch:2020/api/recommend/ChIJTwg-2gUKkEcRGt4wjZvo6lg') //coop bahnhof zurich shopville
           .then(rsp => {
             this.rec_time = rsp.data.rec_time[3];
+			this.rec_time = "08"
             this.best_time = rsp.data.best_time[3];
-          });    
+          });  
       },
 	  reqAll: function() {
 		  console.log(this.loc_arr);
@@ -40,6 +43,10 @@ var app = new Vue({
 			
 			tod_wd = 1; //lets go to monday
 			
+			var sT = document.getElementById("searchTime").value;
+			
+			tod_h = parseInt(sT.split(":")[0]);
+
 			if (tod_wd == 0) {
 				wd_txt = "Sunday";
 			} else if (tod_wd == 1) {
@@ -55,8 +62,10 @@ var app = new Vue({
 			}else if (tod_wd == 6) {
 				wd_txt = "Saturday";
 			}
-			console.log(this.loc_data.data[wd_txt]);
-			console.log(wd_txt);
+			
+			this.now_day = wd_txt;
+			this.now_time = tod_h + ":" + sT.split(":")[1]
+			
 			//console.log(this.loc_data.data["Friday"][tod_h].popularity_normal);
 			if (this.loc_data.data[wd_txt] != null) {
 				//search the hour
@@ -66,7 +75,6 @@ var app = new Vue({
 							ourHour = i;
 					}
 				}
-				console.log(i);
 
 				var lat = this.loc_data.data[wd_txt][ourHour].lat;
 				var lng = this.loc_data.data[wd_txt][ourHour].lng;
@@ -167,3 +175,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 	tileSize: 512,
 	zoomOffset: -1
 }).addTo(mymap); 
+
+var marker = L.marker([47.3753977,8.5363126]).addTo(mymap);
+marker.bindPopup("Your home");
