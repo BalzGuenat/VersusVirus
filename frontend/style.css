@@ -10,3 +10,29 @@ button {
 	padding: 0.5em;
 	font-size: 1em;
 }
+#map {
+	background-image: url("gridData_Friday_11.png");
+	background-size: cover;
+	z-index: 5;
+}
+svg {
+	width: 600px;
+	position: relative;
+	left: 0px;
+	top: -600px;
+	z-index: 6;
+}
+#path {
+	stroke-width: 1.5%;
+	stroke: rgba(0,0,255,0.2);
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-dasharray: 1000;
+	stroke-dashoffset: 1000;
+	animation: dash 5s linear forwards;
+}
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
