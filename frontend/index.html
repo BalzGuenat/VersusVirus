@@ -15,9 +15,12 @@
 <body>
   <div id="app">
     <h1>Underwägs</h1>
+	<div>
+	Hello! Where do you want to go? 
 	<input type="text" id="name" name="name" required
-       minlength="4" maxlength="80" size="10">
+       minlength="4" maxlength="80" size="20" height="40">
     <button v-on:click="fetchData">Go</button>
+	</div>
     <div>
       There are fewer people present around <span class=time>{{ rec_time }}:00</span>.
       The fewest people are there at <span class="time">{{ best_time }}:00</span>.
