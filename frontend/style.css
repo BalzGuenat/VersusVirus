@@ -36,3 +36,20 @@ svg {
     stroke-dashoffset: 0;
   }
 }
+.bar {
+	display: inline-block;
+	width: 10px;
+	margin: 2px;
+}
+.low {
+	height: 30px;
+	background-color: #51c73c;
+}
+.med {
+	height: 65px;
+	background-color: #e8da43;
+}
+.high {
+	height: 100px;
+	background-color: #f05b2e;
+}

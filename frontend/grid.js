@@ -1,3 +1,44 @@
+function createChart(pop) {
+  var elem = document.createElement('div');
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var dataArr = [['Hour', 'Popularity']]
+    for (var i = 0; i < pop.length; i++) {
+      dataArr.push([i, pop[i]]);
+    }
+    var data = google.visualization.arrayToDataTable(dataArr);
+
+    var options = {
+      title: 'Lengths of dinosaurs, in meters',
+      legend: { position: 'none' },
+    };
+
+    // var chart = new google.visualization.Histogram(elem);
+    var chart = new google.visualization.Histogram(document.getElementById('histo'));
+    chart.draw(data, options);
+  }
+  return elem;
+}
+
+function createGridClickHandler(rect, i) {
+  return (event) => {
+    // pop = []
+    // for (var h = 0; h < cells.length; h++) {
+    //   var c = cells[h].grid[i];
+    //   pop.push(c.pop);
+    // }
+    // var chart = createChart(pop);
+    var templ = document.getElementById("histo_templ");
+    var histo = templ.content.querySelector(".histo");
+    var chart = document.importNode(histo, true)
+    var info = new google.maps.InfoWindow({
+      position: rect.cell,
+      content: chart
+    });
+    info.open(rect.map);
+  }
+}
 
 var map;
 function initMap() {
@@ -49,6 +90,7 @@ function initMap() {
       fillColor: color,
       fillOpacity: 0.3,
       map: map,
+      cell: c,
       bounds: {
         north: c.lat + 0.0008,
         south: c.lat,
@@ -56,6 +98,9 @@ function initMap() {
         west: c.lng
       }
     });
+
+    google.maps.event.addListener(rectangle, 'click', createGridClickHandler(rectangle, i));
+
     rectangles.push(rectangle);
   }
 
@@ -69,6 +114,6 @@ function initMap() {
   //   strokeWeight: 4
   // });
 
-  flightPath.setMap(map);
+  // flightPath.setMap(map);
 
 }
