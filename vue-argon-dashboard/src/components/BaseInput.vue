@@ -103,7 +103,8 @@ export default {
         ...this.$listeners,
         input: this.updateValue,
         focus: this.onFocus,
-        blur: this.onBlur
+        blur: this.onBlur,
+        enter: this.onEnter
       };
     },
     slotData() {
@@ -126,14 +127,24 @@ export default {
     updateValue(evt) {
       let value = evt.target.value;
       this.$emit("input", value);
+      //console.log('update: ', value);
+      if (value == 'Zurich Coop') {
+        console.log('do something');
+        console.log(this.$refs.mapp);
+      }
     },
     onFocus(value) {
       this.focused = true;
+      console.log('focus');
       this.$emit("focus", value);
     },
     onBlur(value) {
       this.focused = false;
       this.$emit("blur", value);
+      console.log('blur');
+    },
+    onEnter(value) {
+      console.log('hit enter');
     }
   }
 };
